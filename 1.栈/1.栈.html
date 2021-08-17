@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>栈的封装</title>
+  </head>
+
+  <body>
+    <script>
+      // 封装栈类
+      class Stack {
+        constructor() {
+          this.items = [];
+        }
+        // 方法
+        // 1.向栈中添加元素
+        push(element) {
+          this.items.push(element);
+        }
+        // 2.向栈中移除元素
+        pop() {
+          return this.items.pop();
+        }
+        // 3.查看栈顶元素
+        peek() {
+          return this.items[this.items.length - 1];
+        }
+        // 4.检查栈是否为空
+        isEmpty() {
+          return this.items.length === 0;
+        }
+        // 5.查看栈的大小
+        size() {
+          return this.items.length;
+        }
+        // 6.清空栈元素
+        clear() {
+          this.items = [];
+        }
+        // 7.toString 方法
+        toString() {
+          return this.items.join("");
+        }
+      }
+
+      // 栈的使用
+      // const s = new Stack();
+      // s.push(1);
+      // s.push("c");
+      // console.log(s);
+      // console.log(s.size());
+      // console.log(s.toString());
+
+      // 十进制转二进制的函数
+      function dec2bin(decNumber) {
+        const s = new Stack();
+        let num = decNumber;
+        let binString = ''
+        while (num > 0) {
+          let bin = num % 2;
+          num = Math.floor(num / 2);
+          s.push(bin);
+        }
+        while (!s.isEmpty()) {
+          binString += s.pop().toString();
+        }
+
+        return binString
+      }
+
+      // console.log(dec2bin(100));
+    </script>
+  </body>
+</html>

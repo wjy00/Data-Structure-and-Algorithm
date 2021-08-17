@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <script>
+      // 列表类
+      class ArrayList {
+        constructor() {
+          this.array = [];
+        }
+
+        // 1.数据插入到数组中
+        insert(data) {
+          this.array.push(data);
+        }
+
+        // 2.toString
+        toString() {
+          return this.array.join("-");
+        }
+
+        // 3.希尔排序 (对插入排序的改进)
+        // 时间复杂度最坏情况下为O(N^2),通常情况下都好于O(N^2)
+        shellSort() {
+          let length = this.array.length;
+          let gap = Math.floor(length / 2); // 初始化增量,间隔量
+          for (gap; gap > 0; gap = Math.floor(gap / 2)) {
+            // 以gap作为间隔，进行分组，对分组进行插入排序
+            for (let i = gap; i < length; i++) {
+              for(let j = i-gap; j>=0;j-=gap) {
+                // 进行插入排序
+                if(this.array[j] > this.array[j+gap]) {
+                  [this.array[j],this.array[j+gap]] = [this.array[j+gap],this.array[j]]
+                }
+              }
+            }
+          }
+        }
+      }
+
+      // 测试代码
+      let a = new ArrayList();
+      a.insert(22);
+      a.insert(11);
+      a.insert(33);
+      a.insert(55);
+      a.insert(44);
+      a.insert(0);
+      console.log(a.toString());
+      a.shellSort();
+      console.log(a.toString());
+    </script>
+  </body>
+</html>

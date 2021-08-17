@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <script>
+      // 列表类
+      class ArrayList {
+        constructor() {
+          this.array = [];
+        }
+
+        // 1.数据插入到数组中
+        insert(data) {
+          this.array.push(data);
+        }
+
+        // 2.toString
+        toString() {
+          return this.array.join("-");
+        }
+
+        // 3.快速排序(每次循环找到某个元素的正确位置，并且该元素之后不需要移动) (分而治之)
+        // 时间复杂度O(Nlog(N))
+        quickSort() {
+          this.quick(0,this.array.length -1)
+        }
+        // 根据左右递归
+        quick(left,right) {
+          if(left > right) return // 结束条件
+          let pivot = this.median(left,right) // 获取枢纽
+          // 定义变量，记录当前找到的位置
+          let i = left
+          let j= right - 1
+          // 进行交换
+          while(i < j) {
+            while (this.array[++i] < pivot) { }
+            while (this.array[--j] > pivot) { }
+            if (i < j) {
+              [this.array[i],this.array[j]] = [this.array[j],this.array[i]]
+            }
+          }
+          // 将枢纽放在正确的位置
+          [this.array[i],this.array[right - 1]] = [this.array[right - 1],this.array[i]]
+          // 分而治之，将前后数组再进行递归
+          this.quick(left, i-1)
+          this.quick(i + 1, right)
+        }
+        // 获取枢纽
+        median(left,right) {
+          let center = Math.floor((left + right) / 2) // 中间的位置
+          // 对左中右三个位置的值进行排序
+          if(this.array[left] > this.array[center]) {
+            [this.array[left],this.array[center]] = [this.array[center],this.array[left]]
+          }          
+          if(this.array[center] > this.array[right]) {
+            [this.array[center],this.array[right]] = [this.array[right],this.array[center]]
+          }          
+          if(this.array[left] > this.array[center]) {
+            [this.array[left],this.array[center]] = [this.array[center],this.array[left]]
+          }
+          // 将center移动到 right-1 的位置
+          [this.array[center],this.array[right-1]] = [this.array[right-1],this.array[center]]
+          // 返回枢纽pivot
+          return this.array[right -1]
+        }
+      }
+
+      // 测试代码
+      let a = new ArrayList();
+      a.insert(22);
+      a.insert(11);
+      a.insert(33);
+      a.insert(55);
+      a.insert(44);
+      a.insert(0);
+      console.log(a.toString());
+      a.quickSort();
+      console.log(a.toString());
+    </script>
+  </body>
+</html>

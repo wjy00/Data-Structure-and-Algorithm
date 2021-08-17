@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 游戏规则：
+      // 几个朋友一起玩一个游戏，围成一圈，开始数数, 数到某个数字的人自动淘汰
+      // 最后剩下的这个人会获得胜利,请问最后剩下的是原来在哪一个位置上的人?
+
+      // 封装一个基于队列的函数
+      // 参数:所有参与人的姓名,基于的数字
+      // 结果:最终剩下的一人的姓名
+      function jigu(name, number) {
+        const people = [];
+        for (let i = 0; i < name.length; i++) {
+          people.push(i);
+        }
+        while (people.length > 1) {
+          for (let i = 0; i < number - 1; i++) {
+            people.push(people.shift());
+          }
+          people.shift();
+        }
+        let winner = people.pop()
+        return name[winner];
+      }
+      // 也可以直接使用队列中的方法
+
+      // 结果验证
+      let a = jigu(['a','b','c','d','e'], 3);
+      console.log(a);
+
+    </script>
+  </body>
+</html>

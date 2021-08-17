@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 列表类
+    class ArrayList {
+      constructor() {
+        this.array = []
+      }
+
+      // 1.数据插入到数组中
+      insert(data) {
+        this.array.push(data)
+      }
+
+      // 2.toString
+      toString() {
+        return this.array.join('-')
+      }
+
+      // 3.冒泡排序 (相邻比较，把最大的项放在最后)
+      // 比较次数：O(N^2)   交换次数：O(N^2)
+      bubbleSort() {
+        for (let i = this.array.length - 1; i > 0; i--) { // 每冒泡一次，最后一项向前移一位
+          for (let j = 0; j < i; j++) {
+            if (this.array[j] > this.array[j + 1]) {
+              [this.array[j], this.array[j + 1]] = [this.array[j + 1], this.array[j]]
+            }
+          }
+        }
+      }
+    }
+
+
+    // 测试代码
+    let a = new ArrayList()
+    a.insert(22)
+    a.insert(11)
+    a.insert(33)
+    a.insert(55)
+    a.insert(44)
+    a.insert(0)
+    console.log(a.toString());
+    a.bubbleSort()
+    console.log(a.toString());
+  </script>
+</body>
+
+</html>

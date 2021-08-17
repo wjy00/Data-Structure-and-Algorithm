@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 列表类
+    class ArrayList {
+      constructor() {
+        this.array = []
+      }
+
+      // 1.数据插入到数组中
+      insert(data) {
+        this.array.push(data)
+      }
+
+      // 2.toString
+      toString() {
+        return this.array.join('-')
+      }
+
+      // 3.插入排序 (局部有序，逐次将前i项改为有序，第i项从后向前比较并移位)
+      // 比较次数：O(N^2)<但次数相对于前两种少一些>   复制次数：O(N^2)<两者加起来为 N(N-1)/2>
+      insertionSort() {
+        for (let i = 1; i < this.array.length; i++) {
+          let temp = this.array[i]
+          let j = i
+          while (this.array[j - 1] > temp && j > 0) {
+            this.array[j] = this.array[j - 1]
+            j--
+          }
+          this.array[j] = temp
+        }
+      }
+    }
+
+
+    // 测试代码
+    let a = new ArrayList()
+    a.insert(22)
+    a.insert(11)
+    a.insert(33)
+    a.insert(55)
+    a.insert(44)
+    a.insert(0)
+    console.log(a.toString());
+    a.insertionSort()
+    console.log(a.toString());
+  </script>
+</body>
+
+</html>

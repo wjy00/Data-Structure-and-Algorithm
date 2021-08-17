@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    class Set {
+      constructor() {
+        this.items = {}
+      }
+
+      // 1.向集合添加一个新的项
+      add(value) {
+        // 先判断集合中是否有该值
+        if (this.has(value)) return false
+        // 不存在则添加
+        this.items[value] = value
+        return true
+      }
+
+      // 2.从集合中移除一个值
+      remove(value) {
+        // 先判断集合中是否有该值
+        if (!this.has(value)) return false
+        // 存在则删除
+        delete this.items[value]
+        return true
+      }
+
+      // 3.判断集合中是否有某一个值
+      has(value) {
+        // 使用集合的 hasOwnProperty 方法
+        return this.items.hasOwnProperty(value)
+      }
+
+      // 4.移除集合中所有项
+      clear() {
+        this.items = {}
+      }
+
+      // 5.获取集合中元素数量
+      size() {
+        return Object.keys(this.items).length
+      }
+
+      // 6.返回包含集合中所有值的数组
+      values() {
+        return Object.keys(this.items)
+      }
+
+
+      // 集合间的操作
+      // 1.并集
+      union(otherSet) {
+        // 创建新集合
+        let newSet = new Set()
+        // 将当前集合的元素添加至新集合
+        let values = this.values()
+        for (let i = 0; i < values.length; i++) {
+          newSet.add(values[i])
+        }
+        // 将otherSet集合的元素添加至新集合
+        values = otherSet.values()
+        for (let i = 0; i < values.length; i++) {
+          newSet.add(values[i])
+        }
+        return newSet
+      }
+
+      // 2.交集
+      intersection(otherSet) {
+        // 创建新集合
+        let newSet = new Set()
+        // 遍历当前集合元素，若在另外一个集合中存在，则添加至新集合
+        let values = this.values()
+        for (let i = 0; i < values.length; i++) {
+          if (otherSet.has(values[i])) {
+            newSet.add(values[i])
+          }
+        }
+        return newSet
+      }
+
+      // 3.差集
+      difference(otherSet) {
+        // 创建新集合
+        let newSet = new Set()
+        // 遍历当前集合元素，若在另外一个集合中存在，则不添加至新集合
+        let values = this.values()
+        for (let i = 0; i < values.length; i++) {
+          if (!otherSet.has(values[i])) {
+            newSet.add(values[i])
+          }
+        }
+        return newSet
+      }
+
+      //4.子集
+      subset(otherSet) {
+        // 判断当前集合是否为otherSet的子集
+        let values = this.values()
+        console.log(values);
+        for (let i = 0; i < values.length; i++) {
+          if (!otherSet.has(values[i])) {
+            return false
+          }
+        }
+        return true
+      }
+    }
+
+
+    // 代码测试
+    // let a = new Set()
+    // a.add('a')
+    // a.add('aa')
+    // a.add(1)
+    // let b = new Set()
+    // b.add('b')
+    // b.add('bb')
+    // b.add(1)
+    // console.log(a);
+    // console.log(b);
+
+    // let c = a.union(b)
+    // console.log(c);
+
+    // let d = a.intersection(b)
+    // console.log(d);
+
+    // let e = a.difference(b)
+    // console.log(e);
+
+    // let aa = new Set()
+    // aa.add('a')
+    // // aa.add('aa')
+    // aa.add(1)
+    // console.log(a.subset(aa));
+  </script>
+</body>
+
+</html>
